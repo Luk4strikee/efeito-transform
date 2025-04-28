@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Marianne</title>
+  <link rel="shortcut icon" href="img/character+2.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  
+  <button id="meuBotao"></button>
+
+  <script>
+    const botao = document.getElementById("meuBotao");
+
+    botao.addEventListener("click", () => {
+      const duration = 2 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(function () {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        confetti(Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0, 1), y: Math.random() * 0.6 }
+        }));
+      }, 200);
+    });
+  </script>
+</body>
+</html>
